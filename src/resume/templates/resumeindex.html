@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block body %}
+
+{% ifequal flag 1%}
+<!--<div class="container-fluid">-->
+    <!--<p>目前仅仅支持word</p>-->
+ 	<!--<form enctype="multipart/form-data" action="../../resume/uploadFile/" method="post">  -->
+       <!--<input type="file" name="myfile" />-->
+       <!--<br/>  -->
+       <!--<input type="submit" value="upload"/>  -->
+    <!--</form>  -->
+
+<!--</div>-->
+<div class="panel panel-primary"><!--文件上传-->
+    <div class="panel-heading">
+        <h3 class="panel-title">简历上传（目前仅支持word文件）</h3>
+    </div>
+    <div class="panel-body">
+        <form enctype="multipart/form-data" action="../../resume/uploadFile/" method="post">
+            <div class="form-inline">
+                <input type="file" name="myfile" class="form-control" accept=".doc, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                <!--<span class="input-group-btn">-->
+                <button type="submit" class="btn btn-primary">上传</button>
+                <!--</span>-->
+            </div>
+        </form><!-- /form-group -->
+    </div>
+</div>
+{% else %}
+
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">学术分析</div>
+  <div class="panel-body">
+    <p>...</p>
+  </div>
+
+  <!-- List group -->
+
+  <table class="table">
+   	<tr>
+  	<th >开始时间</th>
+    <th >结束时间</th>
+    <th>学校</th>
+    <th>专业</th>
+    <th>学位</th>
+   	</tr>
+  	{% for info in info_list%}
+  	<tr>	
+    <th >{{info.start_date}}</th>
+    <th >{{info.end_date}}</th>
+    <th>{{info.school}}</th>
+    <th>{{info.major}}</th>
+    <th>{{info.degree}}</th>
+    </tr>
+    {%endfor%}
+  </table>
+  
+    <div class="panel-heading">奖学金分析</div>
+  	<div class="panel-body">
+    <p>...</p>
+  	</div>
+    <ul class="list-group">
+    {% for info in ship_list%}	
+    <li class="list-group-item">{{info}}</li>
+    {%endfor%}
+    </ul>
+    
+
+    
+    <div class="panel-heading">能力分析</div>
+  	<div class="panel-body">
+    <p>...</p>
+  	</div>
+    <div id="my_words" style="width: 550px; height: 350px;"></div>
+    <script type="text/javascript">
+    var basic_words = {{word_list|safe}}
+    $("#my_words").jQCloud(basic_words);
+    
+    </script>
+    
+    <div class="panel-heading">项目分析</div>
+  	<div class="panel-body">
+    <p>...</p>
+  	</div>
+    <ul class="list-group">
+    {% for info in project_list%}	
+    <li class="list-group-item">{{info}}</li>
+    {%endfor%}
+    </ul>
+
+
+</div>
+
+{% endifequal %}
+
+{% endblock %}

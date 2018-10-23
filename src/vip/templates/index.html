@@ -1,0 +1,75 @@
+{% extends "manager_index.html" %}
+{% block body %}
+    <h1>会员及订单管理系统</h1>
+    <div>
+                <ul>
+                    <li >会员管理</li>
+                    <li >订单管理</li>
+                </ul>
+    </div>
+    <div name  = "vip">
+        <h2>会员管理</h2>
+    <hr>
+    <table>
+        <tbody>
+                <a href="{% url 'vip:vipchange'%}" {{ maindata.1 }} method="post" id="vipchange">修改</a>
+                <a href="{% url 'vip:vipdelete'%}" {{ maindata.1 }} method="post" id="vipdelete">删除</a>
+        <hr>
+        <tr>
+            <th>id</th>
+            <th>会员账号</th>
+            <th>创建时间</th>
+            <th>上次修改时间</th>
+            <th>服务结束时间</th>
+        </tr>
+        {% for maindata in infos %}
+        <tr>
+            <td>{{ maindata.1 }}</td>
+            <td>{{ maindata.2 }}</td>
+            <td>{{ maindata.3 }}</td>
+            <td>{{ maindata.4 }}</td>
+            <td>{{ maindata.5 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+
+        <div name = "dingdan">
+        <h2>订单管理</h2>
+    <hr>
+    <table>
+        <tbody>
+                <a href="{% url 'vip:vipchange'%}" {{ maindata.0 }} method="post" id="change">修改</a>
+                <a href="{% url 'vip:vipdelete'%}" {{ maindata.0 }} method="post" id="delete">删除</a>
+        <hr>
+        <tr>
+            <th>id</th>
+            <th>老用户账号</th>
+            <th>新会员账号</th>
+            <th>订单创建时间</th>
+            <th>订单过期时间</th>
+            <th>订单号</th>
+            <th>邀请码</th>
+            <th>上次修改时间</th>
+        </tr>
+        {% for maindata in infos %}
+        <tr>
+            <th>{{ maindata.0 }}</th>
+            <td>{{ maindata.1 }}</td>
+            <td>{{ maindata.2 }}</td>
+            <td>{{ maindata.3 }}</td>
+            <td>{{ maindata.4 }}</td>
+            <td>{{ maindata.5 }}</td>
+            <td>{{ maindata.6 }}</td>
+            <td>{{ maindata.7 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+
+
+{% endblock %}

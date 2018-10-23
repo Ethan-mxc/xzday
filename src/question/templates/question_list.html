@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container-fluid">
+<table class="table" id ="mytable">
+<div class="container">
+ <tr>
+ 		 <th>序号</th>
+  		 <th>问题</th>
+ </tr>
+ {%if data%}
+ {% for key in data%}
+ <div class="container">
+ <tr>
+    <th><label>{{ forloop.counter }}</label></th>
+ 	<th><a href="../../question/info?type={{type}}&page={{forloop.counter}}">{{key.1}}</a></th>
+ </tr>
+ </div>
+{%endfor%}
+{%endif%}
+</table>
+</div>
+<div class="container">
+<a id="btn0"></a>
+<input id="pageSize" type="text" size="1" maxlength="2" value="getDefaultValue()"/><a> 条 </a> <a href="#" id="pageSizeSet">设置</a> 
+<a id="sjzl"></a> 
+<a  href="#" id="btn1">首页</a>
+<a  href="#" id="btn2">上一页   </a>
+<a  href="#" id="btn3">下一页</a>
+<a  href="#" id="btn4">尾页</a> 
+<a>转到 </a>
+<input id="changePage" type="text" size="1" maxlength="4"/>
+<a>页 </a>
+<a  href="#" id="btn5">跳转</a>
+</div>
+</div>
+{% endblock %}

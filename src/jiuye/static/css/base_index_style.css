@@ -1,0 +1,33 @@
+.adwall {
+    padding-top: 80px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+}
+.adwall h1 {
+    font-size: 63px;
+    font-weight: 600;
+    text-shadow:#FFFFFF 5px 0 10px,#FFFFFF 0 5px 10px,#FFFFFF -5px 0 10px,#FFFFFF 0 -5px 10px;
+}
+.adwall p {
+    margin-bottom: 15px;
+    font-size: 21px;
+    font-weight: 200;
+    color: #000000;
+}
+#adfont {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 63px;
+    padding-top: 80px;
+    text-shadow:#000000 5px 0 10px,#000000 0 5px 10px,#000000 -5px 0 10px,#000000 0 -5px 10px;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.error,.corect{height:20px;width:300px;position:absolute;color:#FF0000;}
+.error span{display:block;position:absolute;background:#fcc;border:1px solid #f33;font-size:12px;line-height:16px;color:#600;border-radius:5px;opacity:.8;white-space:nowrap;overflow:hidden;}
+.corect{background-position:0 0;}
+.corect span{display:none;}
+.none{display:none;}

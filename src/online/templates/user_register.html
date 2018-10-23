@@ -1,0 +1,183 @@
+{% extends "baseindex.html" %}
+{% block title %}
+<title>每日校招</title>
+<link rel="stylesheet" href="/static/default/css/selfstyle.css" />
+{% endblock %}
+
+{% block body %}
+<div class="adwall">
+	<a href="../../" style="text-decoration: none;">
+		<div class="container">
+			<h1 style="color: #000000;">Hi，这里是每日校招。</h1>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<hr style="background-color: #000000; height: 3px; border: none;" />
+			<p><b>这里有超多的校招资讯，大有裨益。</b></p>
+		</div>
+	</a>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3"></div>
+
+		<div class="col-md-6">
+			<form method="post" action="/online/register/" onsubmit="adaptValue();">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center; font-size: 40px;">注&nbsp;&nbsp;册</div>
+					<div class="panel-body">
+						<div class="form-group" id="line_name">
+							<label for="aname">用户名</label>
+							<span class="tips">（只能由数字、文字或下划线组成，最多32个字符）</span>
+							<input type="text" class="form-control" name="aname" id="aname" onblur="v_name();" onkeyup="v_name();" />
+
+						</div>
+						<div class="form-group" id="line_email">
+							<label for="email">邮箱</label>
+							<span class="tips">（您的邮箱）</span>
+							<input type="text" class="form-control" name="email" id="email" onblur="v_email();" onkeyup="v_email();"/>
+						</div>
+						<div class="form-group" id="line_graduate">
+							<label for="graduate">毕业时间</label>
+							<span class="tips">（您的毕业时间）</span>
+							<select class="form-control" name="graduate" id="graduate" onblur="v_graduate();" onkeyup="v_graduate();">
+								<option>2018年下半年</option>
+								<option>2019年上半年</option>
+								<option>2019年下半年</option>
+								<option>2020年及以后</option>
+							</select>
+							<!--<input type="text" class="form-control" name="graduate" id="graduate" onblur="v_graduate();" onkeyup="v_graduate();"/>-->
+						</div>
+						<div class="form-group" id="line_passwd">
+							<label for="apasswd">密码</label>
+							<span class="tips">（6至16个字符）</span>
+							<input type="password" class="form-control" name="apasswd" id="apasswd" onblur="v_passwd();" onkeyup="v_passwd();" />
+                        </div>
+						<div class="form-group" id="line_repasswd">
+							<label for="arepasswd">确认密码</label>
+							<span class="tips">（再次输入密码）</span>
+							<input type="password" class="form-control" name="arepasswd" id="arepasswd" onblur="v_repasswd();" onkeyup="v_repasswd();" />
+						</div>
+                        <div class="form-group">
+                            {%if msg%}
+                                <p>{{msg}}</p>
+                            {%endif%}
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary " data-toggle="modal"  data-show="true" id="submit"  disabled="disabled">完成注册</button>
+							<!--<input type="submit" id="submit" value="完成注册" disabled="disabled"/>-->
+						</div>
+						<div class="form-group">
+							<a href="../gotologin/">已有账号？</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-3"></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+function enableSubmit(bool){
+	if(bool)$("#submit").removeAttr("disabled");
+	else $("#submit").attr("disabled","disabled");
+}
+
+function v_submitbutton(){
+	for(f in flags) if(!flags[f]) {
+		enableSubmit(false); 
+		return;
+	}
+	enableSubmit(true);
+}
+
+
+
+var flags = [false,false,false,false];
+
+
+var RegEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+function lineState(name,state,msg){
+	if(state=="none"){$("#line_"+name+"  div").attr("class","none"); return;}
+	if(state=="corect"){$("#line_"+name+"  span").text(msg);$("#line_"+name+"  span").attr("class","corect");return;}
+	if(state=="error"){$("#line_"+name+"  span").text(msg);
+	$("#line_"+name+"  span").attr("class","error");return;}
+
+}
+function v_name(){
+	var aname = $("#aname").val();
+	if(aname.length==0) {
+		lineState("name","error","用户名不能为空"); 
+		flags[1]=false;
+	}else{
+		if(aname.length>32) {
+			lineState("name","error","必须少于32个字符"); 
+			flags[1]=false;
+		}else{
+			lineState("name","corect",""); 
+			flags[1] = true;
+		}
+	}
+	v_submitbutton();
+}
+function v_email(){
+	var email = $("#email").val();
+	if(!RegEmail.test(email)) {lineState("email","error","邮箱格式不正确"); flags[0]=false;enableSubmit(false);}
+	else{lineState("email","corect","");flags[0] = true;}
+	v_submitbutton();
+}
+
+function v_graduate(){
+    var graduate = $("#graduate").val();
+    if(graduate == null) {
+        lineState("graduate","error","必选项，请选择您的毕业时间");
+        flags[0]=false;
+        enableSubmit(false);
+	}else{
+        lineState("graduate","corect","");
+        flags[0] = true;
+	}
+    v_submitbutton();
+}
+
+function v_passwd(){
+	var passwd = $("#apasswd").val();
+	if(passwd.length<6) {
+		lineState("passwd","error","必须多于或等于6个字符"); 
+		flags[2]=false;
+	}else{
+		if(passwd.length>16){
+			lineState("passwd","error","必须少于或等于16个字符"); 
+			flags[2]=false;
+		}else{
+			lineState("passwd","corect","");
+			flags[2] = true;
+		}
+	}
+	v_repasswd();
+	v_submitbutton();
+}
+
+function v_repasswd(){
+	if(!flags[2]) {
+		lineState("repasswd","none",""); 
+		return;
+	}
+	if($("#apasswd").val()!=$("#arepasswd").val()) {
+		lineState("repasswd","error","密码不一致"); 
+		flags[3]=false;
+	}else{
+		lineState("repasswd","corect","");
+		flags[3] = true;
+	}
+	v_submitbutton();
+}
+
+function adaptValue(){
+	return true;
+}
+</script>
+{% endblock %}

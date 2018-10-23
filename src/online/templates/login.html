@@ -1,0 +1,71 @@
+{% extends "baseindex.html" %}
+{% block title %}
+<title>每日校招</title>
+{% endblock %}
+{% block body %}
+<div class="adwall">
+	<a href="../../" style="text-decoration: none;">
+		<div class="container">
+			<h1 style="color: #000000;">Hi，这里是每日校招。</h1>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<hr style="background-color: #000000; height: 3px; border: none;" />
+			<p><b>这里有超多的校招资讯，大有裨益。</b></p>
+		</div>
+	</a>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3"></div>
+
+		<div class="col-md-6">
+			<form action="/online/login/" method = 'post'>
+				{% csrf_token %}
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center; font-size: 40px;">登&nbsp;&nbsp;录</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="name">邮箱</label>
+							<input type="text" class="form-control" name= "name" placeholder="邮箱" id="name" />
+						</div>
+						<div class="form-group">
+							<label for="passwd">密码</label>
+							<input type="password" class="form-control" name="passwd" placeholder="密码" id="passwd" />
+						</div>
+						<div class="form-group">
+                            {%if msg%}
+                                <p>{{msg}}</p>
+                            {%endif%}
+							{%if errors%}
+							<p class="help-block u-errormessage" id="js-server-helpinfo">{{errors}}</p>
+							{%endif%}
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary " data-toggle="modal"  data-show="true" id="js-btn-login">登录</button>
+						</div>
+						<div class="form-group">
+							<a href="../register/">还没账号？</a>
+                            <span  data-toggle="popover" data-placement="right" >
+                             若忘记密码，请联系管理员获取帮助
+                            </span>
+                            <script>
+            $(function () {
+	            $("[data-toggle='popover']").popover({
+                        trigger : 'hover',//鼠标以上时触发弹出提示框
+                        html:true,//开启html 为true的话，data-content里就能放html代码了
+                        content:"<img src='/static/image/weixin.jpg' >"
+                });
+            });
+        </script>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-3"></div>
+	</div>
+</div>
+<!-- container -->
+{% endblock %}
+

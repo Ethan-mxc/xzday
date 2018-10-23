@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}注册界面{% endblock %}
+{% block style %}
+
+<link rel="stylesheet" href="/static/default/css/selfstyle.css" />
+
+{% endblock %}
+{% block body %}
+{% ifequal flag 1%}
+<div id="top"><h1>用户信息填写</h1></div>
+<div class="container-fluid">
+<div class="form-sbak">
+	<form method="post" action="/intr/info/">
+		<div class="left">
+			<div class="line" id="line_info">
+				<div class="info">
+					<strong>意向公司</strong>
+					<span class="tips"></span>
+				</div>
+				<div class="input">
+					<input type="text" name="comp" id="comp" >
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			<div class="line" id="line_job">
+				<div class="info">
+					<strong>意向工作岗位</strong>
+					<span class="tips">可选：售前工程师，售后工程师等</span>
+				</div>
+				<div class="input">
+					<input type="text" name="job" id="job" "/>
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			<div class="line" id="line_edu">
+				<div class="info">
+					<strong>学校</strong>
+					<span class="tips">6至16个字符</span>
+				</div>
+				<div class="input">
+					<input type="text" name="edu" id="edu" />
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="right">
+
+				<input type="submit" id="submit" value="完成信息"  />
+
+		</div>
+	</form>
+</div>
+</div>
+{%else%}
+<div class = "container-fluid">
+<ul class="list-group">
+  <li class="list-group-item list-group-item-success">意向公司 </li>
+  <li class="list-group-item list-group-item-success">{{user_info.comp }}</li>
+  <li class="list-group-item list-group-item-warning"></li>
+  <li class="list-group-item list-group-item-success">意向工作岗位</li>
+  <li class="list-group-item list-group-item-success">{{user_info.job }}</li>
+  <li class="list-group-item list-group-item-warning"></li>
+  <li class="list-group-item list-group-item-success">学校</li>
+  <li class="list-group-item list-group-item-success">{{user_info.edu }}</li>
+</ul>
+</div>
+{% endifequal %}
+
+{% ifequal xzflag 1%}
+<div class="container-fluid">
+<div class="form-lbak">
+	<form method="post" action="/intr/money/">
+		<div class="left">
+			<div class="line" id="line_myinfo">
+				<div class="info">
+					<strong>入职公司</strong>
+					<span class="tips"></span>
+				</div>
+				<div class="input">
+					<input type="text" name="mycomp" id="mycomp" ></input>
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			<div class="line" id="line_myjob">
+				<div class="info">
+					<strong>岗位</strong>
+					<span class="tips"></span>
+				</div>
+				<div class="input">
+					<input type="text" name="myjob" id="myjob" "/>
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			<div class="line" id="line_mylocal">
+				<div class="info">
+					<strong>地点</strong>
+					<span class="tips"></span>
+				</div>
+				<div class="input">
+					<input type="text" name="mylocal" id="mylocal" />
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			<div class="line" id="line_mymoney">
+				<div class="info">
+					<strong>薪资</strong>
+					<span class="tips"></span>
+				</div>
+				<div class="input">
+					<input type="text" name="mymoney" id="mymoney" />
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			<div class="line" id="line_myintr">
+				<div class="info">
+					<strong>说明</strong>
+					<span class="tips"></span>
+				</div>
+				<div class="input">
+					<input type="text" name="myintr" id="myintr" />
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="right">
+
+				<input type="submit" id="submit" value="完成信息"  />
+
+		</div>
+	</form>
+</div>
+</div>
+{%else%}
+<div class = "container-fluid">
+<ul class="list-group">
+  <li class="list-group-item list-group-item-success">入职公司 </li>
+  <li class="list-group-item list-group-item-success">{{user_info.mycomp }}</li>
+  <li class="list-group-item list-group-item-warning"></li>
+  <li class="list-group-item list-group-item-success">入职岗位</li>
+  <li class="list-group-item list-group-item-success">{{user_info.myjob }}</li>
+  <li class="list-group-item list-group-item-warning"></li>
+  <li class="list-group-item list-group-item-success">薪资</li>
+  <li class="list-group-item list-group-item-success">{{user_info.mymoney }}</li>
+
+</ul>
+</div>
+{% endifequal %}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active" ></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1" ></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2" ></li>
+  </ol>
+
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox" style="height: 360px;">
+    <div class="item active";>
+    {% load staticfiles %}
+      <img class="img-responsive" style="height: 100%;"  src="{%static "image/5.jpg"%}">
+      <div class="carousel-caption">
+      	 这里是一个测试
+      </div>
+    </div>
+    <div class="item" ;>
+      <img class="img-responsive" style="height: 100%;" src="{%static "image/6.jpg"%}">
+      <div class="carousel-caption">
+        	尾单群，等你加入
+      </div>
+    </div>
+      <div class="item";>
+      <img class="img-responsive"  style="height: 100%;" src="{%static "image/7.jpg"%}" >
+      <div class="carousel-caption">
+     	  关注每日校招
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="col-md-6">
+<a href="https://mp.weixin.qq.com/s?__biz=MjM5Nzc5MjM0NQ==&mid=2247483798&idx=3&sn=d92a0b9064ef54531e8ee99c4160c5ad&chksm=a6d5dea091a257b66a84e73c0e011042d6b063ab5286d9bd070dc7bf9889dffe4dce44277c24&mpshare=1&scene=1&srcid=0526Jw8n21jci9iLgqorKTL9#rd">
+    <img border="10" src="{%static "pic/mrxz.jpg"%}" width="550" height="400"/>
+</a>
+</div>
+
+  <div class="col-md-6">
+<a href="https://mp.weixin.qq.com/s?__biz=MjM5Nzc5MjM0NQ==&mid=2247484740&idx=1&sn=f2a6de80596a2a69e5960b7f0e334ea7&chksm=a6d5da7291a2536446033232f71965f8ce6de5a2df7893bcaa163845f8218ff89249d8464b5d&mpshare=1&scene=1&srcid=0526Fxh0Uq3Y4uOPzsh5tMtd#rd">
+    <img border="10" src="{%static "pic/wdq.jpg"%}"  width="550" height="400"/>
+</a>
+</div>
+
+
+
+{% endblock %}
+

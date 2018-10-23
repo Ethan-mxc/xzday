@@ -1,0 +1,37 @@
+{% extends "manager_index.html" %}
+{% block body %}
+    <h1>会员及订单管理系统</h1>
+        <h2>订单管理</h2>
+    <hr>
+    <table>
+        <tbody>
+        <tr>
+            <th>id</th>
+            <th>老用户账号</th>
+            <th>新会员账号</th>
+            <th>订单创建时间</th>
+            <th>订单过期时间</th>
+            <th>订单号</th>
+            <th>邀请码</th>
+            <th>上次修改时间</th>
+        </tr>
+        {%if infos %}
+        {% for maindata in infos %}
+        <tr>
+            <th><input type="hidden",id ="id" value="{{ maindata.0 }}"></th>
+            <td><input type="hidden",id ="vipid" value="{{ maindata.1 }}"></td>
+            <td><input type="hidden",id ="newid" value="{{ maindata.2 }}"></td>
+            <td><input type="hidden",id ="create_time" value="{{ maindata.3 }}"></td>
+            <td><input type="hidden",id ="deadline" value="{{ maindata.4 }}"></td>
+            <td><input type="hidden",id ="member" value="{{ maindata.5 }}"></td>
+            <td><input type="hidden",id ="invitation" value="{{ maindata.6 }}"></td>
+            <td><input type="hidden",id ="change_time" value="{{ maindata.7 }}"></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+
+
+{% endblock %}

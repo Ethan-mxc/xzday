@@ -1,0 +1,88 @@
+{% extends "manager_base.html" %}
+{% block body %}
+{% load staticfiles %}
+
+<div class="panel panel-primary"><!--文件上传-->
+    <div class="panel-heading">
+        <h3 class="panel-title">Excel文件上传</h3>
+    </div>
+    <div class="panel-body">
+        <form id="fileUpload" role="form" action="../../manager/upload/" method="post" enctype="multipart/form-data">
+            <div class="form-inline">
+                <input type="file" name="excelin" id="excelin" style="background-color: #FFFFFF" class="form-control" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                <!--<span class="input-group-btn">-->
+                    <button type="submit" class="btn btn-primary">上传</button>
+                <!--</span>-->
+                {% if uploads %}
+                    <span id="recharge" style="color: #FF0000">上传成功！</span>
+                {% endif %}
+            </div>
+        </form><!-- /form-group -->
+    </div>
+</div>
+<div class="panel panel-primary"><!--校招豆充值-->
+    <div class="panel-heading">
+        <h3 class="panel-title">校招豆充值</h3>
+    </div>
+    <div class="panel-body">
+        <form id="beanRecharge" role="form" action="../../manager/bean/" method="post">
+            <div class="form-inline">
+                <input type="text" name="recharge_user_name" id="recharge_user_name" class="form-control" style="background-color: #FFFFFF" placeholder="待充值邮箱...">
+                <input type="text" name="recharge_beans" id="recharge_beans" class="form-control" style="background-color: #FFFFFF" placeholder="充值个数...">
+                <!--<span class="input-group-btn">-->
+                    <button class="btn btn-primary" type="submit">充值</button>
+                <!--</span>-->
+                {% if u_beans %}
+                    <span id="recharge" style="color: #FF0000">校招豆&nbsp;{{ u_beans }}&nbsp;充值成功！</span>
+                {% endif %}
+            </div><!-- /input-group -->
+        </form>
+    </div>
+</div>
+<div class="panel panel-primary"><!--权限管理-->
+    <div class="panel-heading">
+        <h3 class="panel-title">权限管理</h3>
+    </div>
+    <div class="panel-body">
+        <form id="authorityManagement" role="form" action="../../manager/authorize/" method="post">
+            <div class="form-inline">
+                <input type="text" name="authorize_user_name" id="authorize_user_name" class="form-control" style="background-color: #FFFFFF" placeholder="待授权用户名...">
+                <!--<span class="input-group-btn">-->
+                    <button class="btn btn-primary" type="submit">授权管理员</button>
+                {% if role_data.1 %}
+                    <span id="authorize" style="color: #FF0000">{{ role_data.1 }}</span>
+                {% endif %}
+                <!--</span>-->
+            </div><!-- /input-group -->
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!--<div class="container-fluid">-->
+    <!--<p>-->
+        <!--Manager Page-->
+    <!--</p>-->
+<!--{% if infos %}-->
+<!--<div class="panel panel-primary">-->
+  <!--&lt;!&ndash; Default panel contents &ndash;&gt;-->
+  <!--<div class="panel-heading">查询条件{{ text }}</div>-->
+  <!--<div class="panel-body">-->
+      <!--{% for maindata in infos %}-->
+          <!--<li>{{ maindata.1}} {{ maindata.2}}</li>-->
+          <!--<li><a class="btn btn-link" href="/school/all/?id={{ maindata.8 }}">查看详细信息</a></li>-->
+      <!--{% endfor %}-->
+	<!--</div>-->
+<!--</div>-->
+<!--{% endif %}-->
+<!--</div>-->
+
+<!--<script  language="JavaScript" src="{%static "/js/pay.js"%}"></script>-->
+{% endblock %}

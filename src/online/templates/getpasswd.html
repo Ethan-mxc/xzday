@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}找回密码界面{% endblock %}
+
+{% block body %}
+	<div id="wrap">
+            <form method="post" action="/online/getpasswd/" class="form" >
+                <div class="form-group">
+                 <input  name="name" placeholder="请输入您的用户名" class="form-control" id="name">    
+                </div>
+                <h1 id="error"></h1>
+                <button "type="submit" class="btn btn-success" id="btn" onClick = "return namecheck()">确定</button>
+            </form>
+	</div>  <!-- wrap end -->
+	<script type="text/javascript">
+		function namecheck()
+		{
+			if($('#name').val().length<2)
+			{
+				$('#error').html("用户名长度必须大于2");
+				return false;
+			}
+			return true;	
+		}
+      </script>
+{% endblock %}

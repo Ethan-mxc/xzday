@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">查看公司信息</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="comtext">公司名</label>
+                    <input type="text" class="form-control" name="comtext" placeholder="填入公司名" id="comtext">
+                </div>
+                <button type="button" class="btn btn-primary " data-toggle="modal"  data-show="true" id="mycom">查询</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">热门企业</div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a class="list-group-item" href="/company/info?comtext=腾讯">
+                        <h4 class="list-group-item-heading">腾讯</h4>
+                    </a>
+                    <a class="list-group-item" href="/company/info?comtext=阿里">
+                        <h4 class="list-group-item-heading">阿里</h4>
+                    </a>
+                    <a class="list-group-item" href="/company/info?comtext=京东">
+                        <h4 class="list-group-item-heading">京东</h4>
+                    </a>
+                    <a class="list-group-item" href="/company/info?comtext=百度">
+                        <h4 class="list-group-item-heading">百度</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">热门岗位</div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a class="list-group-item" href="/school/info/?zw=开发">
+                        <h4 class="list-group-item-heading">开发</h4>
+                    </a>
+                    <a class="list-group-item" href="/school/info/?zw=测试">
+                        <h4 class="list-group-item-heading">测试</h4>
+                    </a>
+                    <a class="list-group-item" href="/school/info/?zw=产品">
+                        <h4 class="list-group-item-heading">产品</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if infos%}
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{infos.1}} </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <div class="list-group-item">
+                    </div>
+                    <div class="list-group-item">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <td>人数</td>
+                                <td>{{infos.4}}</td>
+                            </tr>
+                            <tr>
+                                <td>地点</td>
+                                <td>{{infos.5}}</td>
+                            </tr>
+                            <tr>
+                                <td>网址</td>
+                                <td>{{infos.6}}</td>
+                            </tr>
+                            <tr>
+                                <td>具体地址</td>
+                                <td>{{infos.7}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">公司相关信息</div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div id="main1" style="height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
+
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var mycompChart = echarts.init(document.getElementById('main1'));
+        	var data = {{jsdata|safe}};
+option1 = {
+    // title: {
+    //     text: '公司相关信息'
+    // },
+    legend: {
+        right: 10,
+        data:[{{jsname|safe}}]
+    },
+    xAxis: {
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        },
+        name:"评分",
+    },
+    yAxis: {
+        splitLine: {
+            lineStyle: {
+                type: 'dashed'
+            }
+        },
+        scale: true,
+        name:"面试难度",
+    },
+    series: [ {
+        data: data,
+        type: 'scatter',
+        symbolSize: function (data) {
+            return Math.sqrt(data[2]);
+        },
+        label: {
+            emphasis: {
+                show: true,
+                formatter: function (param) {
+                    return param.data[3];
+                },
+                position: 'top'
+            }
+        },
+        itemStyle: {
+            normal: {
+                    shadowBlur: 20,
+                    shadowOffsetX: 0,
+                    color: function(params) {
+                    var colorList = ['#C33531','#EFE42A','#64BD3D','#EE9201','#29AAE3', '#B74AE5','#0AAF9F','#E89589','#16A085','#4A235A','#C39BD3 ','#F9E79F','#BA4A00','#ECF0F1','#616A6B','#EAF2F8','#4A235A','#3498DB' ];
+                    return colorList[params.dataIndex]
+                },
+            }
+        }
+    }]
+	};
+	        mycompChart.setOption(option1);
+    </script>
+{% load staticfiles %}
+<script  language="JavaScript" src="{%static "/js/pay.js"%}"></script>
+{% endblock %}

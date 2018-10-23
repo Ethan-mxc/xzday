@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}更改头像界面{% endblock %}
+
+{% block body %}
+	<div id="wrap">
+            
+			<form action="/online/changehead_image/" method="post" enctype="multipart/form-data">
+                <p>
+                      <input id="id_image" type="file"  name="image"> <!-- 这一行应该是form.image，省事写的 -->
+                </p>
+                <input type="submit" class="btn btn-success" value="Submit" />
+          </form>
+	</div>  <!-- wrap end -->
+	
+{% endblock %}

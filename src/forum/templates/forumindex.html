@@ -1,0 +1,225 @@
+{% extends "./base.html" %}
+{% block body %} 
+
+<div class="container-fluid" >
+		<form id="scarch_bar_form" method="get" onSubmit="searchFocus($(&#39;scarch_bar_txt&#39;))" action=" 。。/search'">
+                        <input id="scarch_bar_txt" name="srchtxt" type="text" dir="ltr" spellcheck="false" value="" autocomplete="off" x-webkit-speech="" speech=""  placeholder="请输入搜索内容">
+        	     		<button type="submit" name="searchsubmit" id="searchsubmit" sc="1"   class="btn btn-primary " value="true">搜索</button> 
+    					<a href="../post_create"><strong class="xi2 xs2">发帖</strong></a>
+         </form>  
+   	
+ </div>
+	<ul id="scarch_bar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+	<script type="text/javascript">
+    initSearchmenu('scarch_bar', '');
+	</script>
+
+</div>
+
+
+
+<!-- zoopda navigation start -->
+
+<!-- End -->
+
+<link rel="stylesheet" type="text/css" href="/static/css/style_21_common.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_21_forum_index.css"> 
+<link type="text/css" rel="stylesheet" href="chrome-extension://olmanbchlogbfhhgimnombopppdooidm/css/style.css"></head>	
+<link id="css_forum_moderator" type="text/css" rel="stylesheet" href="/static/css/style_21_forum_moderator.css">
+<div class="container-fluid">
+	<div class="con box">
+          <div class="list" id="threadlist" style="position: relative;">
+	<script src="/static/js/forum_moderate.js" type="text/javascript"></script>
+	
+<form method="post" autocomplete="off" name="moderate" id="moderate" action="">
+	<input type="hidden" name="formhash" value="31213a3e">
+	<input type="hidden" name="listextra" value="">
+
+
+<!--table-->
+{% if post_list %}
+{% for post in post_list %}
+<table width="100%">			
+        <tbody><tr id="post">
+            <td width="10%" class="avatar" valign="middle">
+		<a href="{{ post.get_absolute_url }}" title="">
+			<img src="{{ post.author.head_image }}">
+		</a>
+            </td>
+            
+            <td width="auto" valign="middle" class="mainbox">
+                <div class="title">
+<a class="title" href="{{ post.get_absolute_url }}" rel="bookmark" title="">{{ post.title }}</a>
+                                </div>
+                <div class="status">
+                    <div class="cate"><a href="{{ post.column.get_absolute_url }}" target="_blank">{{ post.column }}</a></div>
+                    <span>•</span>
+                    
+                    <div class="date"><span title="">发表于{{ post.created_at|date:"Y-m-d H:i:s" }}</span></div>
+                    <span>•</span>
+                    <div class="author">{{ post.author.name }}</div>
+                                        <span>•</span>
+                                        
+                    <div class="lastreply">
+                        <a href="" target="_blank" title="1 分钟前">{{ post.last_response.name }}最后回复</a>
+                    </div>
+                    
+                                    </div>
+            </td>
+            
+            <td width="11%" align="right" valign="middle" class="reply">
+            	<a href="" target="_blank">{{ post.responce_times }}/{{ post.view_times }}</a>
+            </td>
+        </tr>
+    </tbody></table>
+    {% endfor %}
+{% endif %}
+<!--table end-->
+</form>
+	</div>
+                <!--list End -->
+
+           <!-- Page start -->
+        <div class="pages clearfix">
+         <div class="backhome" id="visitedforumstmp" onMouseOver="$(&#39;visitedforums&#39;).id = &#39;visitedforumstmp&#39;;this.id = &#39;visitedforums&#39;;showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;21&#39;})"><a href="/">返&nbsp;回</a></div>
+		
+            <ul class="num">
+			<?php pagenavi(); ?>
+
+			</ul>    </div>
+                <!-- End -->
+            </div>
+        <!-- End -->
+
+        <!-- Right block start -->
+            <div class="sub">
+   					 <!-- 版规 Start -->
+        
+    				<!-- 版规 End -->
+<!-- 热门板块 Start -->
+    <div class="box sidewidget">
+        <h5 class="clearfix">热门版块</h5>
+     <div class="hotbo sidebox">
+        <ul>
+	    {% for column in column_list %}
+		<li class="bo_59 clearfix">
+                <div class="block_icon">
+                    <a href="{{ column.get_absolute_url }}">
+                        <img src="{{column.img}}" height="50" width="50" border="0">
+                    </a>
+                </div>
+                <div class="block_info">
+                    <h2>
+                        <a href="{{ column.get_absolute_url }}">{{column.name}}</a>
+                    </h2>
+                    <div class="describe">{{column.description}}</div>
+                </div>
+                </li>
+	    {% endfor %}
+            
+         </ul>
+    </div>
+<!-- 热门板块 End -->
+
+<!-- 彩色 Start --><!-- 彩色 End -->
+
+
+<!-- BBS状态 Start -->
+	<div class="favorite box sidewidget">
+    <h5 class="clearfix">热点帖子</h5>
+    <div class="list sidebox">
+        <ul>
+	{% for hot_post in hot_posts %}
+		<li>
+		<a href="{{ hot_post.get_absolute_url }}">{{ hot_post.title }}</a>
+		</li>	
+	{% endfor %}
+	</ul>
+    </div>
+	</div>
+
+	<div class="box sidewidget">
+    <h5 class="clearfix">论坛统计</h5>
+    <div class="list sidebox">
+        <ul>
+            <li>在线人数: {{ online_ips_count }}</li>
+            <li>注册人数：{{ foruminfo.account_number }}</li>
+            <li>帖子数：{{ foruminfo.post_number }}</li>
+            <li>今日: {{ foruminfo.today_post_number }}</li>
+            <li>昨日: {{ foruminfo.lastday_post_number }}</li>
+            
+                    </ul>
+    </div>
+	</div>
+<!-- BBS状态 End -->
+
+<!-- BBS微信QR码 Start -->
+    <div class="box sidewidget">
+    <h5 class="clearfix">最近评论</h5>
+    <div class="list sidebox">
+	<ul>
+	{% for last_comment in last_comments %}
+		<li>
+		<a href="{{ last_comment.get_absolute_url }}">{{ last_comment.author.name }}:{{ last_comment.content }}</a>
+		</li>	
+	{% endfor %}
+	</ul>
+        <!-- <img alt="煮机网" src="<?php bloginfo('stylesheet_directory'); ?>/images/qr_zoopda.gif">-->
+    </div>
+    
+	</div>
+<!-- BBS微信QR码 End -->
+
+</div>            
+</div>           
+</div>
+        <!-- End -->
+{% endblock %}
+ 
+{% block footer %}                         
+
+       
+        
+    
+
+    
+<div class="footer clearfix">
+    	<div class="wrap">
+            <div class="nav">
+            	<!-- footer navigation start -->
+                <a href="">手机版</a><span class="pipe">|</span><a href="">Archiver</a><span class="pipe">|</span><a href="">合作伙伴</a><span class="pipe">|</span><a href="">@小鱼论坛</a><span class="pipe">|</span><a href="">@社区</a><span class="pipe">|</span>                <!-- End -->
+                &nbsp;&nbsp;<a href="" title="腾讯分析" target="_blank">腾讯分析</a><script type="text/javascript" src="" charset="utf-8"></script><script type="text/javascript" reload="1">pgvMain({"discuzParams":{"r2":"1558567","ui":0,"rt":"forum","md":"index","pn":1,"qq":"000","logo":9},"extraParams":""});</script><script type="text/javascript" src=""></script><img src="" border="0" width="1" height="1"><noscript>&lt;a href="http://www.linezing.com"&gt;&lt;img src="http://img.tongji.linezing.com/1042481/tongji.gif"/&gt;&lt;/a&gt;</noscript>
+            </div>
+            <div class="copyright">
+                © 2001-2013 <strong><a href="" target="_blank">IOT510</a> </strong>
+
+                <br>Powered by <a href="" target="_blank">pushiqiang</a> 
+                
+                ( <a href="" target="_blank">ICP备10241590号-3 | B2-20110072</a> )
+                
+                <span id="debuginfo">
+                                    </span>
+                            </div>
+                                </div>
+    </div>
+    <!-- BIG End -->
+    <div class="fxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxk_discuz_ft">
+    <div id="g_upmine_menu" class="tip tip_3" style="display:none;">
+<div class="tip_c">
+积分 0, 距离下一级还需  积分
+</div>
+<div class="tip_horn"></div>
+</div>
+<div id="scrolltop" onClick="window.scrollTo(&#39;0&#39;,&#39;0&#39;)" style="left: auto; right: 0px; visibility: hidden;">回顶部</div>
+<div id="ft"></div>
+   </div>
+
+
+
+
+<div id="yunpan_image_hover_container" style="z-index: 410; left: 298px; top: 187px;"><style>            #yunpan_image_hover_container {                width: 23px;                height: 100px;                background-image: url(chrome-extension://olmanbchlogbfhhgimnombopppdooidm/images/hover-vertical.png);                background-position: -33px 0;            }            #yunpan_image_hover_container:hover {background-image: url(chrome-extension://olmanbchlogbfhhgimnombopppdooidm/images/hover-vertical.png);}            </style></div>
+<?php wp_footer(); ?>
+
+{% endblock %}
+
+

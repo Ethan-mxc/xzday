@@ -1,0 +1,67 @@
+{% extends "manager_index.html" %}
+{% block body %}
+    <h1>会员及订单管理系统</h1>
+       <form action="{% url 'vip:vipchange'%}" method="post">
+           {% csrf_token %}
+    <div>
+        <h2>会员管理</h2>
+    <hr>
+        <table>
+        <tbody>
+        <tr>
+            <th>id</th>
+            <th>会员账号</th>
+            <th>创建时间</th>
+            <th>上次修改时间</th>
+            <th>服务结束时间</th>
+        </tr>
+
+            {% if infos %}
+            {% for maindata in infos %}
+        <tr>
+            <td>
+                <input type="hidden",id ="id" value="{{ maindata.1 }}">
+            </td>
+            <td>
+                <input type="hidden",id ="vip" value="{{ maindata.2 }}">
+            </td>
+            <td>
+                <input type="hidden",id ="create_time" value="{{ maindata.3 }}">
+            </td>
+            <td>
+                <input type="hidden",id ="change_time" value="{{ maindata.4 }}">
+            </td>
+            <td>
+                <input type="hidden",id ="deadline" value="{{ maindata.5 }}">
+            </td>
+        </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+            <td>
+                <input type="hidden",id="id" value="{{ maindata.1 }}">
+            </td>
+            <td>
+                <input type="hidden",id="vip" value="{{ maindata.2 }}">
+            </td>
+            <td>
+                <input type="hidden",id="create_time" value="{{ maindata.3 }}">
+            </td>
+            <td>
+                <input type="hidden",id="change_time" value="{{ maindata.4 }}">
+            </td>
+            <td>
+                <input type="hidden",id="deadline" value="{{ maindata.5 }}">
+            </td>
+            </tr>
+
+
+        </tbody>
+        </table>
+    </div>
+           {% endif %}
+           <input type="submit",value="提交">
+       </form>
+
+
+{% endblock %}

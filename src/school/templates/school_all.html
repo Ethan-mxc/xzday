@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+    <div class="col-md-6">
+        <form id="schoolinfo" role="form" action="../../school/info/" method="post">
+        <div class="panel panel-primary">
+            <div class="panel-heading">查看校招信息</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="comtext">公司名</label>
+                    <input type="text" class="form-control" name="comtext" placeholder="填入公司名" id="comtext">
+                </div>
+                <div class="form-group">
+                    <label for="zw">职位</label>
+                    <input type="text" class="form-control" name="zw" placeholder="填入职位" id="zw">
+                </div>
+                <div class="form-group">
+                    <label for="fl">分类</label>
+                    <input type="text" class="form-control" name="fl" placeholder="填入分类" id="fl">
+                </div>
+                <button type="submit" class="btn btn-primary " data-toggle="modal"  data-show="true" id="mycom">查询</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">热门企业</div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a class="list-group-item" href="/school/info/?comtext=腾讯">
+                        <h4 class="list-group-item-heading">腾讯</h4>
+                    </a>
+                    <a class="list-group-item" href="/school/info/?comtext=阿里">
+                        <h4 class="list-group-item-heading">阿里</h4>
+                    </a>
+                    <a class="list-group-item" href="/school/info/?comtext=百度">
+                        <h4 class="list-group-item-heading">百度</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">热门岗位</div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a class="list-group-item" href="/school/info/?zw=开发">
+                        <h4 class="list-group-item-heading">开发</h4>
+                    </a>
+                    <a class="list-group-item" href="/school/info/?zw=测试">
+                        <h4 class="list-group-item-heading">测试</h4>
+                    </a>
+                    <a class="list-group-item" href="/school/info/?zw=产品">
+                        <h4 class="list-group-item-heading">产品</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% if infos %}
+        <div class="panel panel-primary">
+        <!-- Default panel contents -->
+            <div class="panel-heading">查询条件: {{ infos.1 }}   <a href={{ infos.7 }}  style="color:red;float:right;">来源查看</a></div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h2>{{ infos.1}} <span  style="color:red;float:right;">{{ infos.5 }}</span></h2>
+                            <p><strong>{{ infos.2 }}</strong></p>
+                            <p>{{ infos.3 }}</p>
+                            <p><span  style="color:red">投递方式: </span>{{ infos.4 }}</p>
+                            <p><span style="color:red">地点: </span>{{ infos.6 }}</p>
+                            <p><span style="color:red">采集时间: </span>{{ infos.0 }}</p>
+                        </div>
+                    </div>
+	            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

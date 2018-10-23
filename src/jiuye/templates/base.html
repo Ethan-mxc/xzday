@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang ="zh-CN">
+<head>
+    <title>每日校招</title>
+    {% load staticfiles %}
+    <link href="{%static "bootstrap-3.3.5-dist/css/bootstrap.min.css"%}" rel="stylesheet">
+    <script src="{%static "bootstrap-3.3.5-dist/js/jquery-2.1.1.min.js"%}"></script>
+    <script src="{%static "bootstrap-3.3.5-dist/js/bootstrap.min.js"%}"></script>
+    <script type="text/javascript" src="{%static "js/jquery.js"%}"></script>
+    <script type="text/javascript" src="{%static "js/echarts.min.js"%}"></script>
+    <script type="text/javascript" src="{%static "js/pay.js"%}"></script>
+    <script type="text/javascript" src="{%static "js/jqcloud-1.0.4.js"%}"></script>
+
+    <link href="/static/bootstrap-3.3.5-dist/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="/static/css/selfstyle.css" />-->
+    <link rel="stylesheet" href="/static/css/base_index_style.css" />
+    <link rel="stylesheet" href="/static/css/jqcloud.css" />
+    <style type="text/css">
+    html,body{
+    height:100%;
+    margin:0px;
+   }
+   </style>
+</head>
+<body>
+<div class="container-fluid" id = "containermain" >
+{% block head %}
+<nav class="navbar navbar-default">
+<ul id="myTabs" class="nav navbar-nav">
+    <li><a href="../../" >主页</a></li>
+    <!--<li> <a href="../../pay/index"> 查看薪资信息  </a></li>
+    <li> <a href="../../question/index"> 查看问题信息  </a></li>-->
+    <li><a href="../../school/index"> 查看校招信息  </a></li>
+    <li><a href="../../company/index"> 查看公司信息  </a></li>
+    <!--<li><a href="../../intr/index" >个人主页</a></li>-->
+    <li><a href="../../person/index" >个人分析</a></li>
+    <li><a href="../../resume/index" >简历分析(测试版)</a></li>
+    <!--<li><a href="../../forum/index" >讨论区</a></li>
+    <li><a href="../../" >充值专区</a></li>-->
+    <li><a href="../../more" >更多信息</a></li>
+ </ul>
+
+         {% if request.session.islogin %}
+            <form class="navbar-form navbar-right">
+            {% ifequal request.session.user_info.role "管理员"%}
+            <span style="color:#000">管理员,</span>
+            {% endifequal %}
+            <span style="color:#000">您好：{{ request.session.user_info.name }}</span>
+            <span style="color:#000">豆：{{ request.session.beans }}</span>
+			<a class="btn btn-link" href="/online/changepasswd">修改密码</a>
+            <a class="btn btn-danger" href="/online/logout">退出</a>
+			
+            </form>
+        {% else %}
+            <form class="navbar-form navbar-right" action="/online/login/" method="post">
+                <div class="form-group">
+                  <input type="text" name="name" id="name" placeholder="username" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="password" name="passwd" id="passwd" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success" >登录</button>
+                <a class="btn btn-success" href="/online/register/">注册</a>
+				<a class="btn btn-link" href="/online/getpasswd/">忘记密码,点击这里</a>
+            </form>
+        {% endif %}
+   </nav>
+
+{% endblock %}
+{% block body %}
+
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
+</div>
+
+</body>
+
+</html>	

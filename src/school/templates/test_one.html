@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block body %}
+<div>
+    <div>
+        <div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+    xAxis: {
+        type: 'category',
+        data: {{ jsdata1|safe }}
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        data: {{ jsdata2|safe }},
+        type: 'bar'
+    }]
+};
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+{% for maindata in infos4 %}
+<h2>{{ maindata.1 }}</h2>
+{% endfor %}
+<br />
+    <h3>{{ num0 }}</h3>
+    <h3>{{ num1 }}</h3>
+    <h3>{{ num2 }}</h3>
+    <h3>{{ num3 }}</h3>
+<br/>
+
+{% endblock %}

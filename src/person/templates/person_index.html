@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="jumbotron">
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="list-group">
+				<div class="list-group-item">
+                    {% ifequal qz 1%}
+					<h2 style="text-align: center;">求职指导</h2>
+                    {% else %}
+                    <h2 style="text-align: center;">就业预测</h2>
+                    {% endifequal  %}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="list-group">
+				{% if jl %}
+				<div class="list-group-item">
+					<form enctype="multipart/form-data" action="../../resume/uploadPFile/" method="post">
+						<div class="row">
+							<div class="container">
+								<div class="panel panel-primary">
+									<div class="panel-body">
+										<div class="form-group">
+											<label for="comp">请上传您的简历</label>
+											<div class="form-inline">
+												<input type="file" name="myfile" class="form-control" accept=".doc, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+												<button type="submit" class="btn btn-primary">上传</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form><!-- /form-group -->
+				</div>
+				{% else %}
+				{% endif %}
+				<div class="list-group-item">
+					<form method="post" action="/person/info/">
+						<div class="row">
+                        {% ifequal qz 1%}
+							<div class="container">
+								<div class="panel panel-primary">
+									<!--<div class="panel-heading">填写教育经历</div>-->
+									<div class="panel-body">
+										<div class="form-group">
+											<label for="comp">意向公司</label>
+											<span class="tips">（您最想去的公司）</span>
+											<input type="text" class="form-control" name="comp" placeholder="填入公司" id="comp" >
+										</div>
+										<div class="form-group">
+											<label for="job">意向岗位</label>
+											<span class="tips">（可选：售前工程师，售后工程师等）</span>
+											<input type="text" class="form-control" name="job" placeholder="填入岗位" id="job"/>
+										</div>
+										<div class="form-group">
+											<label for="degree">最高学历</label>
+											<span class="tips"></span>
+											<select class="form-control" name="degree" id="degree">
+												<option>专科</option>
+												<option>本科</option>
+												<option>硕士</option>
+												<option>博士</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="edu">最高学历学校</label>
+											<span class="tips">（如：清华大学）</span>
+											<input type="text" class="form-control" name="edu" placeholder="填入学校" id="edu" />
+										</div>
+										<div class="form-group">
+											<label for="major">最高学历专业</label>
+											<span class="tips"></span>
+											<input type="text" class="form-control" name="major" placeholder="填入专业" id="major" />
+										</div>
+                                        <div class="form-group">
+											<label for="becomp">曾经服务过的公司</label>
+											<span class="tips">（如：腾讯）</span>
+											<input type="text" class="form-control" name="becomp" placeholder="填入公司" id="becomp" />
+										</div>
+										<div class="form-group">
+											<label for="bejob">曾经从事过的岗位</label>
+											<span class="tips">（如：开发，测试等）</span>
+											<input type="text" class="form-control" name="bejob" placeholder="填入岗位" id="bejob" />
+										</div>
+									</div>
+								</div>
+							</div>
+							{% else %}
+							<div class="container">
+								<div class="panel panel-primary">
+									<!--<div class="panel-heading">填写实习经历</div>-->
+									<div class="panel-body">
+										<div class="form-group">
+											<label for="becomp">曾经服务过的公司</label>
+											<span class="tips">（如：腾讯）</span>
+											<input type="text" class="form-control" name="becomp" placeholder="填入公司" id="becomp" />
+										</div>
+										<div class="form-group">
+											<label for="bejob">曾经从事过的岗位</label>
+											<span class="tips">（如：开发，测试等）</span>
+											<input type="text" class="form-control" name="bejob" placeholder="填入岗位" id="bejob" />
+										</div>
+										<div class="form-group">
+											<label for="degree">最高学历</label>
+											<span class="tips"></span>
+											<select class="form-control" name="degree" id="degree">
+												<option>专科</option>
+												<option>本科</option>
+												<option>硕士</option>
+												<option>博士</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="edu">最高学历学校</label>
+											<span class="tips">（如：清华大学）</span>
+											<input type="text" class="form-control" name="edu" placeholder="填入学校" id="edu" />
+										</div>
+										<div class="form-group">
+											<label for="major">最高学历专业</label>
+											<span class="tips"></span>
+											<input type="text" class="form-control" name="major" placeholder="填入专业" id="major" />
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endifequal %}
+						</div>
+						<div class="row">
+							<div class="col-md-2"></div>
+							<div class="col-md-3">
+								<button type="submit" class="btn btn-primary " data-toggle="modal"  data-show="true" id="submit">完成信息填写</button>
+								<script>
+                                    $("#submit").click(function(){
+                                        alert("天机系统正在为你匹配上百万的数据，请耐心等待。") ;})
+								</script>
+							</div>
+							<div class="col-md-2"></div>
+							<div class="col-md-3">
+								{% ifequal  qz 1%}
+								<a class="btn btn-success" href="../index2/">转到就业预测</a>
+								{% else %}
+								<a class="btn btn-success" href="../index/">转到求职指导</a>
+								{% endifequal %}
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+						<!--<div class="row" style="height: 60px;">-->
+						<!--</div>-->
+					</form>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+</div>
+
+<!--<div class="list-group">-->
+	<!--<div class="list-group-item">-->
+		<!--<h2 style="text-align: center;">额外信息或底部信息</h2>-->
+		<!--<h3>每日校招，致力于协助国内外大学生拿到互联网行业的offer。</h3>-->
+	<!--</div>-->
+<!--</div>-->
+
+
+
+
+
+<!--<div id="top"><h1>用户信息填写</h1></div>-->
+
+{% endblock %}

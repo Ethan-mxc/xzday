@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}修改密码界面{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="/static/default/css/selfstyle.css" />
+{% endblock %}
+{% block body %}
+	<div id="top"><h1>修改密码</h1></div>
+<div id="wrap">
+{% if status %}
+            <div id="content">
+                <article id="post_list">
+                    <p>{{ msg }}</p>
+                </article>
+            </div>
+{% else %}
+<div class="form-bak">
+	<form method="post" action="/online/changepasswd/" onsubmit="adaptValue();">
+		<div class="left">
+			<div class="line" id="line_passwd">
+				<div class="info">
+					<strong>新密码</strong>
+					<span class="tips">6至16个字符</span>
+				</div>
+				<div class="input">
+					<input type="password" name="passwd" id="passwd" onblur="v_passwd();" onkeyup="v_passwd();" />
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+			
+			<div class="line" id="line_repasswd">
+				<div class="info">
+					<strong>确认新密码</strong>
+					<span class="tips">再次输入新密码</span>
+				</div>
+				<div class="input">
+					<input type="password" name="repasswd" id="repasswd" onblur="v_repasswd();" onkeyup="v_repasswd();" />
+					<div class="none"><span></span></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="right">
+			<input type="submit" id="submit" value="确定修改" disabled="disabled"/>
+		</div>
+	</form>	
+</div>
+{% endif %}
+</div>
+<script type="text/javascript">
+function enableSubmit(bool){
+	if(bool)$("#submit").removeAttr("disabled");
+	else $("#submit").attr("disabled","disabled");
+}
+
+function v_submitbutton(){
+	
+	for(f in flags) if(!flags[f]) {
+		enableSubmit(false); 
+		return;
+	}
+	enableSubmit(true);
+}
+
+
+
+var flags = [false,false];
+
+
+
+function lineState(name,state,msg){
+	if(state=="none"){$("#line_"+name+" .input div").attr("class","none"); return;}
+	if(state=="corect"){$("#line_"+name+" .input div").attr("class","corect");return;}
+	$("#line_"+name+" .input span").text(msg);$("#line_"+name+" .input div").attr("class","error");
+}
+
+
+
+
+
+function v_passwd(){
+	var passwd = $("#passwd").val();
+	if(passwd.length<6) {
+		lineState("passwd","error","必须多于或等于6个字符"); 
+		flags[0]=false;
+	}else{
+		if(passwd.length>16){
+			lineState("passwd","error","必须少于或等于16个字符"); 
+			flags[0]=false;
+		}else{
+			lineState("passwd","corect","");
+			flags[0] = true;
+		}
+	}
+	v_repasswd();
+	v_submitbutton();
+}
+
+function v_repasswd(){
+	if(!flags[0]) {
+		lineState("repasswd","none",""); 
+		return;
+	}
+	if($("#passwd").val()!=$("#repasswd").val()) {
+		lineState("repasswd","error","密码不一致"); 
+		flags[1]=false;
+	}else{
+		lineState("repasswd","corect","");
+		flags[1] = true;
+	}
+	v_submitbutton();
+}
+
+function adaptValue(){
+	return true;
+}
+</script>
+{% endblock %}

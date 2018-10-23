@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block body %}
+ {%if queinfo%}
+ {% for key in queinfo%}
+ <div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">问题:{{key.1}}</div>
+  <div class="panel-body">
+    <p>{{key.2}}</p>
+  </div>
+ </div>
+{%endfor%}
+{%endif%}
+
+
+<div class="container">
+{%if maxnumber%}
+{% for temp in maxlist%}
+<a href="../../question/info?type={{type}}&page={{temp}}">{{temp}}</a>
+{%endfor%}
+<form method="post" action="/person/info/">
+</form>
+{%endif%}
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+{% block head %}
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+    <title>每日校招</title>
+    {% endblock %}
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="/static/css/base_index_style.css" />
+</head>
+{% endblock %}
+
+{% load staticfiles %}
+<body style="background-size: cover; background-image: url('{%static "image/backgroundimg.jpg"%}')">
+{% block body %}
+<div class="adwall">
+  <div class="container">
+    <h1 style="color: #000000">Hi，这里是每日校招。</h1>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <hr style="background-color: #000000; height: 3px; border: none;" />
+    <p><b>这里有超多的校招资讯，大有裨益。</b></p>
+    <div class="row" >
+        {% if request.session.islogin %}
+            <p class="col-md-1"><a class="btn btn-success btn-lg" href="/school/index/" role="button">校招信息</a></p>
+            <div class="col-md-1"></div>
+            <p class="col-md-1"><a class="btn btn-success btn-lg" href="/person/index/" role="button">求职指导</a></p>
+            <div class="col-md-1"></div>
+            <p class="col-md-1"><a class="btn btn-success btn-lg" href="/person/index2/" role="button">就业预测</a></p>
+            <!--<p class="col-md-3"><a class="btn btn-primary btn-lg" href="/more/" role="button">想要了解更多？</a></p>-->
+        {% else %}
+            <p class="col-md-1"><a class="btn btn-success btn-lg" href="/online/gotologin/" role="button">登录</a></p>
+            <p class="col-md-1"><a class="btn btn-success btn-lg" href="/online/register/" role="button">注册</a></p>
+            <p class="col-md-3"><a class="btn btn-primary btn-lg" href="/more/" role="button">想要了解更多？</a></p>
+         {% endif %}
+    </div>
+  </div>
+</div>
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox" style="height: 250px;">
+        <div class="item active";>
+            <strong><p class="img-responsive" id="adfont">同学你好</p></strong>
+        </div>
+        <div class="item" ;>
+            <strong><p class="img-responsive" id="adfont">欢迎关注每日校招</p></strong>
+        </div>
+        <div class="item";>
+            <strong><p class="img-responsive" id="adfont">这里有超多的校招资讯</p></strong>
+        </div>
+        <div class="item";>
+            <strong><p class="img-responsive" id="adfont">对你将来的求职之路大有裨益</p></strong>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+
+
