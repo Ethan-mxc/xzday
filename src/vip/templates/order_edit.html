@@ -1,37 +1,48 @@
 {% extends "manager_index.html" %}
 {% block body %}
-    <h1>会员及订单管理系统</h1>
-        <h2>订单管理</h2>
-    <hr>
-    <table>
-        <tbody>
-        <tr>
-            <th>id</th>
-            <th>老用户账号</th>
-            <th>新会员账号</th>
-            <th>订单创建时间</th>
-            <th>订单过期时间</th>
-            <th>订单号</th>
-            <th>邀请码</th>
-            <th>上次修改时间</th>
-        </tr>
-        {%if infos %}
-        {% for maindata in infos %}
-        <tr>
-            <th><input type="hidden",id ="id" value="{{ maindata.0 }}"></th>
-            <td><input type="hidden",id ="vipid" value="{{ maindata.1 }}"></td>
-            <td><input type="hidden",id ="newid" value="{{ maindata.2 }}"></td>
-            <td><input type="hidden",id ="create_time" value="{{ maindata.3 }}"></td>
-            <td><input type="hidden",id ="deadline" value="{{ maindata.4 }}"></td>
-            <td><input type="hidden",id ="member" value="{{ maindata.5 }}"></td>
-            <td><input type="hidden",id ="invitation" value="{{ maindata.6 }}"></td>
-            <td><input type="hidden",id ="change_time" value="{{ maindata.7 }}"></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
-
-
-
+<form action="{% url 'vip:order_edit_action' %}" method="post">
+    {% csrf_token %}
+    {% if res %}
+        <input type="hidden" name="id" value="{{res.id}}"/>
+        <label>老会员邮箱
+        <input type="text" name="old" value="{{ res.old}}"/> </label>
+        <br/>
+        <label>新会员邮箱
+        <input type="text" name="new" value="{{ res.new}}"/> </label>
+        <br/>
+        <label>开始服务时间
+        <input type="text" name="start_time" value="{{ res.start_time}}"/> </label>
+        <br/>
+        <label>结束服务时间
+        <input type="text" name="end_time" value="{{ res.end_time}}"/> </label>
+        <br/>
+        <label>订单号
+        <input type="text" name="dingdanhao" value="{{ res.dingdanhao}}"/></label>
+        <br/>
+        <label>邀请码
+        <input type="text" name="invitation" value="{{ res.invitation}}"/></label>
+        <br/>
+    {% else %}
+        <input type="hidden" name="id" value="0"/>
+        <label>老会员邮箱
+        <input type="text" name="old" value="{{ res.old}}"/> </label>
+        <br/>
+        <label>新会员邮箱
+        <input type="text" name="new" value="{{ res.new}}"/> </label>
+        <br/>
+        <label>开始服务时间
+        <input type="text" name="start_time" value="{{ res.start_time}}"/> </label>
+        <br/>
+        <label>结束服务时间
+        <input type="text" name="end_time" value="{{ res.end_time}}"/> </label>
+        <br/>
+        <label>订单号
+        <input type="text" name="dingdanhao" value="{{ res.dingdanhao}}"/></label>
+        <br/>
+        <label>邀请码
+        <input type="text" name="invitation" value="{{ res.invitation}}"/></label>
+        <br/>
+    {% endif %}
+    <input type="submit" value='更新'>
+</form>
 {% endblock %}

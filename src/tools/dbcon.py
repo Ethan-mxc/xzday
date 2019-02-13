@@ -30,6 +30,7 @@ class MynewcoderDB:
     def close(self):
         self.db_cur.close()
         self.db_conn.close()
+
 class WordCut:
     def __init__(self,sentence):
         self.sentence = sentence

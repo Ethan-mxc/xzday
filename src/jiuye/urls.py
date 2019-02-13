@@ -28,7 +28,7 @@ urlpatterns = [
    # url(r'^intr/', include('intr.urls')),
     url(r'^company/', include('company.urls')), 
     url(r'^resume/', include('resume.urls')),
-    url(r'^vip/',include('vip.urls',namespace= 'vip')),
+    url(r'^vip/',include('vip.urls',namespace = "vip")),
     url(r'^captcha/', include('captcha.urls')),
     #url(r'^forum/', include('forum.urls')),
     url(r'^person/', include('person.urls')),

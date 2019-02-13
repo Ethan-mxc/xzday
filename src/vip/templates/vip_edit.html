@@ -1,0 +1,137 @@
+{% extends "manager_index.html" %}
+{% block body %}
+<form action="{% url 'vip:vip_edit_action' %}" method="post">
+    {% csrf_token %}
+    {% if res %}
+        <input type="hidden" name="res_id" value="{{res.id}}"/>
+        <label>会员ID
+        <input type="text" name="res_vipid" value="{{ res.vipid}}"/></label>
+        <br/>
+        <label>会员邮箱
+        <input type="text" name="res_mail" value="{{ res.vip}}" id = "email" onblur="v_email();" onkeyup="v_email();"/> </label>
+        <br/>
+        <label>创建时间
+        <input type="datetime-local" name="res_create_time" value="{{ res.create_time}}"/> </label>
+        <br/>
+        <label>到期时间
+        <input type="datetime-local" name="res_deadline" value="{{ res.deadline}}"/> </label>
+        <br/>
+    {% else %}
+        <input type="hidden" name="res_id" value="0"/>
+        <label>会员ID
+        <input type="text" name="res_vipid" value="{{ res.vipid}}"/></label>
+        <br/>
+        <label>会员邮箱
+        <input type="text" name="res_mail" value="{{ res.vip}}" onblur="v_email();" onkeyup="v_email();"/> </label>
+        <br/>
+        <label>创建时间
+        <input type="datetime-local" name="res_create_time" value="{{ res.create_time}}"/> </label>
+        <br/>
+        <label>到期时间
+        <input type="datetime-local" name="res_deadline" value="{{ res.deadline}}"/> </label>
+        <br/>
+    {% endif %}
+    <input type="submit" value='更新'>
+</form>
+<script type="text/javascript">
+function enableSubmit(bool){
+	if(bool)$("#submit").removeAttr("disabled");
+	else $("#submit").attr("disabled","disabled");
+}
+
+function v_submitbutton(){
+	for(f in flags) if(!flags[f]) {
+		enableSubmit(false);
+		return;
+	}
+	enableSubmit(true);
+}
+
+
+
+var flags = [false,false,false,false];
+
+
+var RegEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+function lineState(name,state,msg){
+	if(state=="none"){$("#line_"+name+"  div").attr("class","none"); return;}
+	if(state=="corect"){$("#line_"+name+"  span").text(msg);$("#line_"+name+"  span").attr("class","corect");return;}
+	if(state=="error"){$("#line_"+name+"  span").text(msg);
+	$("#line_"+name+"  span").attr("class","error");return;}
+
+}
+function v_name(){
+	var aname = $("#aname").val();
+	if(aname.length==0) {
+		lineState("name","error","用户名不能为空");
+		flags[1]=false;
+	}else{
+		if(aname.length>32) {
+			lineState("name","error","必须少于32个字符");
+			flags[1]=false;
+		}else{
+			lineState("name","corect","");
+			flags[1] = true;
+		}
+	}
+	v_submitbutton();
+}
+function v_email(){
+	var email = $("#email").val();
+	if(!RegEmail.test(email)) {lineState("email","error","邮箱格式不正确"); flags[0]=false;enableSubmit(false);}
+	else{lineState("email","corect","");flags[0] = true;}
+	v_submitbutton();
+}
+
+function v_graduate(){
+    var graduate = $("#graduate").val();
+    if(graduate == null) {
+        lineState("graduate","error","必选项，请选择您的毕业时间");
+        flags[0]=false;
+        enableSubmit(false);
+	}else{
+        lineState("graduate","corect","");
+        flags[0] = true;
+	}
+    v_submitbutton();
+}
+
+function v_passwd(){
+	var passwd = $("#apasswd").val();
+	if(passwd.length<6) {
+		lineState("passwd","error","必须多于或等于6个字符");
+		flags[2]=false;
+	}else{
+		if(passwd.length>16){
+			lineState("passwd","error","必须少于或等于16个字符");
+			flags[2]=false;
+		}else{
+			lineState("passwd","corect","");
+			flags[2] = true;
+		}
+	}
+	v_repasswd();
+	v_submitbutton();
+}
+
+function v_repasswd(){
+	if(!flags[2]) {
+		lineState("repasswd","none","");
+		return;
+	}
+	if($("#apasswd").val()!=$("#arepasswd").val()) {
+		lineState("repasswd","error","密码不一致");
+		flags[3]=false;
+	}else{
+		lineState("repasswd","corect","");
+		flags[3] = true;
+	}
+	v_submitbutton();
+}
+
+function adaptValue(){
+	return true;
+}
+</script>
+{% endblock %}

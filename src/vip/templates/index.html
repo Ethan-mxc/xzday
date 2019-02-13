@@ -2,74 +2,60 @@
 {% block body %}
     <h1>会员及订单管理系统</h1>
     <div>
-                <ul>
-                    <li >会员管理</li>
-                    <li >订单管理</li>
-                </ul>
+    <button type="button"   onclick=show1()>会员管理</button>
+    <button type="button"   onclick=show2()>订单管理</button>
     </div>
-    <div name  = "vip">
+    <div id="vip" style="display:block">
         <h2>会员管理</h2>
+        <form  method="post" action="/vip/search/" >
+            {% csrf_token %}
+            <p>请输入需查询的会员邮箱</p>
+        <input type="text" name="vip" placeholder="请输入会员邮箱">
+            <button type="submit" >搜索账号</button>
+        </form>
+        <a href="{% url 'vip:vip_edit' 0 %}">新增会员</a>
     <hr>
-    <table>
-        <tbody>
-                <a href="{% url 'vip:vipchange'%}" {{ maindata.1 }} method="post" id="vipchange">修改</a>
-                <a href="{% url 'vip:vipdelete'%}" {{ maindata.1 }} method="post" id="vipdelete">删除</a>
         <hr>
-        <tr>
-            <th>id</th>
-            <th>会员账号</th>
-            <th>创建时间</th>
-            <th>上次修改时间</th>
-            <th>服务结束时间</th>
-        </tr>
-        {% for maindata in infos %}
-        <tr>
-            <td>{{ maindata.1 }}</td>
-            <td>{{ maindata.2 }}</td>
-            <td>{{ maindata.3 }}</td>
-            <td>{{ maindata.4 }}</td>
-            <td>{{ maindata.5 }}</td>
-        </tr>
+            <p>点击账号以进行修改&nbsp</p>
+        {% for res in results %}
+            <a href="{% url 'vip:show' res.id %}">{{ res.vip }}&nbsp<br></a>
         {% endfor %}
-        </tbody>
-    </table>
     </div>
 
-
-        <div name = "dingdan">
+    <div id="order" style="display:none">
         <h2>订单管理</h2>
     <hr>
-    <table>
-        <tbody>
-                <a href="{% url 'vip:vipchange'%}" {{ maindata.0 }} method="post" id="change">修改</a>
-                <a href="{% url 'vip:vipdelete'%}" {{ maindata.0 }} method="post" id="delete">删除</a>
-        <hr>
-        <tr>
-            <th>id</th>
-            <th>老用户账号</th>
-            <th>新会员账号</th>
-            <th>订单创建时间</th>
-            <th>订单过期时间</th>
-            <th>订单号</th>
-            <th>邀请码</th>
-            <th>上次修改时间</th>
-        </tr>
-        {% for maindata in infos %}
-        <tr>
-            <th>{{ maindata.0 }}</th>
-            <td>{{ maindata.1 }}</td>
-            <td>{{ maindata.2 }}</td>
-            <td>{{ maindata.3 }}</td>
-            <td>{{ maindata.4 }}</td>
-            <td>{{ maindata.5 }}</td>
-            <td>{{ maindata.6 }}</td>
-            <td>{{ maindata.7 }}</td>
-        </tr>
+        <form  method="post" action="/vip/share_search/" >
+            {% csrf_token %}
+            <p>请输入需查询的完整订单号</p>
+        <input type="text" name="share_dingdanhao" placeholder="请输入订单号">
+            <button type="submit" >搜索订单号</button>
+        </form>
+         <a href="{% url 'vip:order_edit' 0 %}">新增订单</a>
+    <hr>
+    <p>点击订单号以进行修改&nbsp</p>
+        {% for ress in resultsshare %}
+        <a href="{% url 'vip:order_show' ress.id %}">{{ ress.dingdanhao }}&nbsp<br></a>
         {% endfor %}
-        </tbody>
-    </table>
+
     </div>
 
 
+<script type="text/javascript">
+    function show1(){
 
+        document.getElementById("vip").style.display="block";
+
+        document.getElementById("order").style.display="none";
+
+    }
+
+    function show2(){
+
+        document.getElementById("vip").style.display="none";
+
+        document.getElementById("order").style.display="block";
+
+    }
+</script>
 {% endblock %}
