@@ -2,7 +2,7 @@
 {% block body %}
 <form action="{% url 'vip:vip_edit_action' %}" method="post" onsubmit="return validate_form(this);">
     {% csrf_token %}
-        <input type="hidden" name="res_id" value="{{res.id}}"/>
+        <input type="hidden" name="res_id" value="0"/>
         <label>会员ID
         <input type="text" name="res_vipid" value="{{ res.vipid}}"/></label>
         <br/>
@@ -10,12 +10,12 @@
         <input type="text" name="res_mail" value="{{ res.vip}}" /> </label>
         <br/>
         <label>创建时间
-        <input name="res_create_time" value="{{ res.create_time}}" id="create_time" onblur="check();"/> </label>
+        <input name="res_create_time" value="{{ res.create_time}}" id="create_time" onblur="check()"/> </label>
         <br/>
         <label>到期时间
-        <input name="res_deadline" value="{{ res.deadline}}" id="deadline" onblur="check2();"/> </label>
+        <input name="res_deadline" value="{{ res.deadline}}" id="deadline" onblur="check2()"/> </label>
         <br/>
-    <input type="submit" value='更新'>
+    <input type="submit" value='提交'>
 </form>
 <script type="text/javascript">
 function validate_email(field,alerttxt)
@@ -38,7 +38,6 @@ if (validate_email(res_mail,"不是一个有效的邮箱地址，请填入一个
   {res_mail.focus();return false}
 }
 }
-
 function check()
    {
         var date = document.getElementById("create_time").value;

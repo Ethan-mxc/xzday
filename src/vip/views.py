@@ -221,7 +221,7 @@ def share_search(req):
 def vip_edit(req,res_id):
     if comfirm(req):#确认身份
         if str(res_id) == '0':
-            return render(req,'vip_edit.html')
+            return render(req,'new_vip_edit.html')
         try:
             my_db = MynewcoderDB()
             sql1 = "select * from vip where id = "+res_id+" "
@@ -242,7 +242,7 @@ def vip_edit(req,res_id):
 def order_edit(req,res_id):
     if comfirm(req):#确认身份
         if str(res_id) == '0':
-            return render(req,'order_edit.html')
+            return render(req,'new_order_edit.html')
         try:
             my_db = MynewcoderDB()
             sql1 = "select * from share where id = "+res_id+" "

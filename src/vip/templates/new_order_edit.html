@@ -1,19 +1,25 @@
 {% extends "manager_index.html" %}
 {% block body %}
-<form action="{% url 'vip:vip_edit_action' %}" method="post" onsubmit="return validate_form(this);">
+<form action="{% url 'vip:order_edit_action' %}" method="post" onsubmit="return validate_form(this);">
     {% csrf_token %}
-        <input type="hidden" name="res_id" value="{{res.id}}"/>
-        <label>会员ID
-        <input type="text" name="res_vipid" value="{{ res.vipid}}"/></label>
+        <input type="hidden" name="id" value="0"/>
+        <label>老会员邮箱
+        <input type="text" name="old" value="{{ res.old}}"/> </label>
         <br/>
-        <label>会员邮箱
-        <input type="text" name="res_mail" value="{{ res.vip}}" /> </label>
+        <label>新会员邮箱
+        <input type="text" name="new_email" value="{{ res.new}}"/> </label>
         <br/>
-        <label>创建时间
-        <input name="res_create_time" value="{{ res.create_time}}" id="create_time" onblur="check();"/> </label>
+        <label>开始服务时间
+        <input type="text" name="start_time" value="{{ res.start_time}}" id="start_time" onblur="check()"/> </label>
         <br/>
-        <label>到期时间
-        <input name="res_deadline" value="{{ res.deadline}}" id="deadline" onblur="check2();"/> </label>
+        <label>结束服务时间
+        <input type="text" name="end_time" value="{{ res.end_time}}" id="end_time" onblur="check2()"/> </label>
+        <br/>
+        <label>订单号
+        <input type="text" name="dingdanhao" value="{{ res.dingdanhao}}"/></label>
+        <br/>
+        <label>邀请码
+        <input type="text" name="invitation" value="{{ res.invitation}}"/></label>
         <br/>
     <input type="submit" value='更新'>
 </form>
@@ -34,31 +40,32 @@ function validate_form(thisform)
 {
 with (thisform)
 {
-if (validate_email(res_mail,"不是一个有效的邮箱地址，请填入一个有效的邮箱地址")==false)
-  {res_mail.focus();return false}
+if (validate_email(old,"不是一个有效的邮箱地址，请填入一个有效的老用户邮箱地址")==false)
+  {old.focus();return false}
+if (validate_email(new_email,"不是一个有效的邮箱地址，请填入一个有效的新用户邮箱地址")==false)
+  {new_email.focus();return false}
 }
 }
-
 function check()
    {
-        var date = document.getElementById("create_time").value;
+        var date = document.getElementById("start_time").value;
         var result = date.match(/((^((1[8-9]\d{2})|([2-9]\d{3}))(-)(10|12|0?[13578])(-)(3[01]|[12][0-9]|0?[1-9])$)|(^((1[8-9]\d{2})|([2-9]\d{3}))(-)(11|0?[469])(-)(30|[12][0-9]|0?[1-9])$)|(^((1[8-9]\d{2})|([2-9]\d{3}))(-)(0?2)(-)(2[0-8]|1[0-9]|0?[1-9])$)|(^([2468][048]00)(-)(0?2)(-)(29)$)|(^([3579][26]00)(-)(0?2)(-)(29)$)|(^([1][89][0][48])(-)(0?2)(-)(29)$)|(^([2-9][0-9][0][48])(-)(0?2)(-)(29)$)|(^([1][89][2468][048])(-)(0?2)(-)(29)$)|(^([2-9][0-9][2468][048])(-)(0?2)(-)(29)$)|(^([1][89][13579][26])(-)(0?2)(-)(29)$)|(^([2-9][0-9][13579][26])(-)(0?2)(-)(29)$))/);
         if(result==null)
         {
-            alert("创建日期时间格式输入错误");
-            alert("请输入正确的创建时间日期格式,例如YYYY(年)-DD(月)-XX(日)");
+            alert("开始服务时间格式输入错误");
+            alert("请输入正确的开始服务时间日期格式,例如YYYY(年)-DD(月)-XX(日)");
             return false;
         }
 
 }
 function check2()
    {
-        var date = document.getElementById("deadline").value;
+        var date = document.getElementById("end_time").value;
         var result = date.match(/((^((1[8-9]\d{2})|([2-9]\d{3}))(-)(10|12|0?[13578])(-)(3[01]|[12][0-9]|0?[1-9])$)|(^((1[8-9]\d{2})|([2-9]\d{3}))(-)(11|0?[469])(-)(30|[12][0-9]|0?[1-9])$)|(^((1[8-9]\d{2})|([2-9]\d{3}))(-)(0?2)(-)(2[0-8]|1[0-9]|0?[1-9])$)|(^([2468][048]00)(-)(0?2)(-)(29)$)|(^([3579][26]00)(-)(0?2)(-)(29)$)|(^([1][89][0][48])(-)(0?2)(-)(29)$)|(^([2-9][0-9][0][48])(-)(0?2)(-)(29)$)|(^([1][89][2468][048])(-)(0?2)(-)(29)$)|(^([2-9][0-9][2468][048])(-)(0?2)(-)(29)$)|(^([1][89][13579][26])(-)(0?2)(-)(29)$)|(^([2-9][0-9][13579][26])(-)(0?2)(-)(29)$))/);
         if(result==null)
         {
-            alert("到期时间格式输入错误");
-            alert("请输入正确的到期时间日期格式,例如YYYY(年)-DD(月)-XX(日)");
+            alert("结束服务时间格式输入错误");
+            alert("请输入正确的结束服务时间日期格式,例如YYYY(年)-DD(月)-XX(日)");
             return false;
         }
 
